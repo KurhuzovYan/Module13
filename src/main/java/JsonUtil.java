@@ -2,7 +2,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
-import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -12,7 +11,6 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 
 public class JsonUtil {
@@ -80,4 +78,25 @@ public class JsonUtil {
 
         return users;
     }
+
+    public static User getUserById(int id) throws IOException, InterruptedException {
+        User currentUser = getUsers().get(id);
+        return currentUser;
+    }
+
+    public static User getUserByUsername(String username) {
+        User currentUser = null;
+        try {
+            List<User> users = getUsers();
+            for (User user : users) {
+                if (user.getUsername().equals(username)) {
+                    currentUser = user;
+                }
+            }
+        } catch (Exception e){
+            throw new ExceptionInInitializerError();
+        }
+        return currentUser;
+    }
+
 }

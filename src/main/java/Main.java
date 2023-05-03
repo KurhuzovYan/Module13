@@ -13,7 +13,11 @@ public class Main {
 //       JsonUtil.sendPost(user1);
 //       JsonUtil.sendPut(user1);
 //       JsonUtil.sendDelete(user1);
-        System.out.println("JsonUtil.getUsers() = " + JsonUtil.getUsers());
+//        List<User> users = JsonUtil.getUsers();
+//        User user2 = users.get(1);
+//        JsonUtil.sendDelete(user2);
+//        System.out.println("JsonUtil.getInformationOfCurrentUser = " + JsonUtil.getUserById(0));
+        System.out.println("JsonUtil.getUserByUsername(\"Bret\") = " + JsonUtil.getUserByUsername("Bret"));
     }
 
 }
