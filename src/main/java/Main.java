@@ -8,7 +8,12 @@ public class Main {
         Company company1 = new Company("Google", "Face to face bifurcated interface", "e-enable strategic applications");
         User user1 = new User(1, "Yan Kurhuzov", "kurhuzov", "yan.dasty@gmail.com", address1,"(067) 241-12-51", "yan.com", company1);
 
+
+
 //       JsonUtil.sendPost(user1);
-       JsonUtil.sendPut(user1);
+//       JsonUtil.sendPut(user1);
+//       JsonUtil.sendDelete(user1);
+        System.out.println("JsonUtil.getUsers() = " + JsonUtil.getUsers());
     }
+
 }
