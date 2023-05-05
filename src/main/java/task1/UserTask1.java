@@ -1,4 +1,6 @@
-public class User {
+package task1;
+
+public class UserTask1 {
 
     private int id;
     private String name;
@@ -9,8 +11,8 @@ public class User {
     private String website;
     private Company company;
 
-    public User(int id, String name, String username, String email, Address address, String phone,
-                String website, Company company) {
+    public UserTask1(int id, String name, String username, String email, Address address, String phone,
+                     String website, Company company) {
         this.id = id;
         this.name = name;
         this.username = username;

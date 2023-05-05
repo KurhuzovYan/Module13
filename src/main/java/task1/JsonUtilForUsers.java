@@ -1,3 +1,5 @@
+package task1;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -13,13 +15,13 @@ import java.net.http.HttpResponse;
 import java.nio.file.Paths;
 import java.util.List;
 
-public class JsonUtil {
-
+public class JsonUtilForUsers {
     private static final String USER_URL = "https://jsonplaceholder.typicode.com/users";
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private static final HttpClient CLIENT = HttpClient.newHttpClient();
 
-    public static void sendPost(User user) throws IOException, InterruptedException {
+    public static void sendPost(UserTask1 user) throws IOException, InterruptedException {
+
 
         final String body = GSON.toJson(user);
 
@@ -39,12 +41,12 @@ public class JsonUtil {
         System.out.println(response.body());
     }
 
-    public static void sendPut(User user) throws IOException, InterruptedException {
+    public static void sendPut(UserTask1 user) throws IOException, InterruptedException {
 
         final String body = GSON.toJson(user);
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(USER_URL))
+                .uri(URI.create("https://jsonplaceholder.typicode.com/users/3"))
                 .header("Content-Type", "application/json")
                 .PUT(HttpRequest.BodyPublishers.ofString(body))
                 .build();
@@ -52,19 +54,18 @@ public class JsonUtil {
         HttpResponse<String> response = CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
     }
 
-    public static void sendDelete(User user) throws IOException, InterruptedException {
-        final String body = GSON.toJson(user);
+    public static void sendDelete() throws IOException, InterruptedException {
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(USER_URL))
+                .uri(URI.create("https://jsonplaceholder.typicode.com/users/3"))
                 .header("Content-Type", "application/json")
-                .method("DELETE", HttpRequest.BodyPublishers.ofString(body))
+                .DELETE()
                 .build();
 
         HttpResponse<String> response = CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
     }
 
-    public static List<User> getUsers() throws IOException, InterruptedException {
+    public static List<UserTask1> getUsers() throws IOException, InterruptedException {
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(USER_URL))
@@ -73,30 +74,35 @@ public class JsonUtil {
 
         HttpResponse<String> response = CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
 
-        Type type = TypeToken.getParameterized(List.class, User.class).getType();
-        List<User> users = new Gson().fromJson(response.body(), type);
+        Type type = TypeToken.getParameterized(List.class, UserTask1.class).getType();
+        List<UserTask1> users = new Gson().fromJson(response.body(), type);
+
+        try (FileWriter mfr = new FileWriter("allUsers.json")) {
+            String allUsers = GSON.toJson(users);
+            mfr.write(allUsers);
+        }
 
         return users;
     }
 
-    public static User getUserById(int id) throws IOException, InterruptedException {
-        User currentUser = getUsers().get(id);
+    public static UserTask1 getUserById(int id) throws IOException, InterruptedException {
+        UserTask1 currentUser = getUsers().get(id);
         return currentUser;
     }
 
-    public static User getUserByUsername(String username) {
-        User currentUser = null;
-        try {
-            List<User> users = getUsers();
-            for (User user : users) {
-                if (user.getUsername().equals(username)) {
-                    currentUser = user;
-                }
+    public static UserTask1 getUserByUsername(String username) throws IOException, InterruptedException {
+        UserTask1 currentUser = null;
+
+        List<UserTask1> users = getUsers();
+        for (UserTask1 user : users) {
+            if (user.getUsername().equals(username)) {
+                currentUser = user;
             }
-        } catch (Exception e){
-            throw new ExceptionInInitializerError();
         }
         return currentUser;
     }
+
+
+
 
 }
