@@ -1,5 +1,6 @@
 package task3;
 
+import Const.Constants;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.FileWriter;
@@ -11,10 +12,7 @@ import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static task1.Constants.CLIENT;
-import static task1.Constants.GSON;
-
-public class JsonUtilForTask3 {
+public class JsonUtilForTask3 implements Constants {
 
     public static List<UserTask3> getOpenTasksByUserId(int userId) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()

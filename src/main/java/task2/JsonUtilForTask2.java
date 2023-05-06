@@ -1,5 +1,6 @@
 package task2;
 
+import Const.Constants;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.FileWriter;
@@ -10,9 +11,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.List;
 
-import static task1.Constants.*;
-
-public class JsonUtilForTask2 {
+public class JsonUtilForTask2 implements Constants {
 
     public static void getLastCommentOfUserById(int userId) throws IOException, InterruptedException {
 

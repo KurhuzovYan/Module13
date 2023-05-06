@@ -1,5 +1,6 @@
 package task1;
 
+import Const.Constants;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -10,9 +11,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.List;
 
-import static task1.Constants.*;
-
-public class JsonUtilForTask1 {
+public class JsonUtilForTask1 implements Constants {
     public static String sendPost(UserTask1 user) throws IOException, InterruptedException {
 
         final String body = GSON.toJson(user);
