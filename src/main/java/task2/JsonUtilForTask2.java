@@ -1,22 +1,18 @@
 package task2;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.URI;
-import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.List;
 
+import static task1.Constants.*;
+
 public class JsonUtilForTask2 {
-    private static final String USER_URL = "https://jsonplaceholder.typicode.com/users";
-    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-    private static final HttpClient CLIENT = HttpClient.newHttpClient();
 
     public static void getLastCommentOfUserById(int userId) throws IOException, InterruptedException {
 

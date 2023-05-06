@@ -1,22 +1,20 @@
 package task3;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.URI;
-import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static task1.Constants.CLIENT;
+import static task1.Constants.GSON;
+
 public class JsonUtilForTask3 {
-    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-    private static final HttpClient CLIENT = HttpClient.newHttpClient();
 
     public static List<UserTask3> getOpenTasksByUserId(int userId) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
