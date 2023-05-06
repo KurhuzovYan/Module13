@@ -13,14 +13,14 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.List;
 
-public class JsonUtilForComments {
+public class JsonUtilForTask2 {
     private static final String USER_URL = "https://jsonplaceholder.typicode.com/users";
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private static final HttpClient CLIENT = HttpClient.newHttpClient();
 
-    public static void getLastCommendAndRecordInFile(int user) throws IOException, InterruptedException {
+    public static void getLastCommentOfUserById(int userId) throws IOException, InterruptedException {
 
-        HttpResponse<String> postResponse = getHttpResponse(USER_URL, "/" + user + "/posts");
+        HttpResponse<String> postResponse = getResponse(USER_URL, "/" + userId + "/posts");
         Type typeForUser = TypeToken.getParameterized(List.class, UserTask2.class).getType();
 
         List<UserTask2> posts = getList(postResponse, typeForUser);
@@ -29,18 +29,19 @@ public class JsonUtilForComments {
                 .max()
                 .getAsInt();
 
-        HttpResponse<String> commentResponse = getHttpResponse("https://jsonplaceholder.typicode.com/posts/", lastPostId + "/comments");
+        HttpResponse<String> commentResponse = getResponse("https://jsonplaceholder.typicode.com/posts/", lastPostId + "/comments");
 
         Type typeForComment = TypeToken.getParameterized(List.class, Comment.class).getType();
         List<Comment> comments = getList(commentResponse, typeForComment);
 
-        try (FileWriter mfr = new FileWriter("user-" + user + "-post-" + lastPostId + "-comments.json")) {
+        try (FileWriter mfr = new FileWriter("user-" + userId + "-post-" + lastPostId + "-comments.json")) {
             String res = GSON.toJson(comments);
             mfr.write(res);
 
         } catch (IOException e) {
             throw new IOException();
         }
+        System.out.println("File created with name: user-" + userId + "-post-" + lastPostId + "-comments.json");
     }
 
     private static<T> List<T> getList(HttpResponse<String> response, Type type) {
@@ -48,7 +49,7 @@ public class JsonUtilForComments {
         return currentUser;
     }
 
-    private static HttpResponse<String> getHttpResponse(String url, String parameter) throws IOException, InterruptedException {
+    private static HttpResponse<String> getResponse(String url, String parameter) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(url + parameter))
                 .GET()
